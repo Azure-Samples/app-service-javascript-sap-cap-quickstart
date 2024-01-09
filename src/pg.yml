@@ -1,0 +1,14 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    command: ["postgres", "-c", "log_statement=all"]
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
