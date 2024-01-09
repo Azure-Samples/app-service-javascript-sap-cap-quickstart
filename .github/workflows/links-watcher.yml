@@ -1,0 +1,32 @@
+name: Periodic Link Checker
+
+on:
+  schedule:
+    - cron: "0 23 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  link-checker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout source code"
+        uses: actions/checkout@v4
+      - name: Link Checker
+        id: lychee
+        uses: lycheeverse/lychee-action@v1.8.0
+        with:
+          args: --verbose --no-progress --max-concurrency 2 --exclude-mail --exclude-link-local --exclude-loopback './**/*.md' --exclude portal.azure.com --exclude developers.sap.com
+          output: ./lychee/out.md
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - name: Create issue if error
+        uses: peter-evans/create-issue-from-file@v4
+        if: ${{ steps.lychee.outputs.exit_code }} != 0
+        with:
+          title: Link Checker Report
+          content-filepath: ./lychee/out.md
+          labels: broken link, automated issue

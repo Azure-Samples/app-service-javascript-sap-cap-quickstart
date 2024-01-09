@@ -1,0 +1,38 @@
+// For format details, see https://aka.ms/devcontainer.json.
+{
+	"name": "Azure Developer CLI (Default - Bicep)",
+	"image": "mcr.microsoft.com/devcontainers/javascript-node:20-bullseye",
+	"features": {
+		"ghcr.io/devcontainers/features/azure-cli:1": {},
+		"ghcr.io/azure/azure-dev/azd:latest": {},
+		"ghcr.io/devcontainers/features/github-cli:1": {
+			"version": "2"
+		},
+		"ghcr.io/devcontainers/features/powershell:1": {},
+		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"GitHub.vscode-github-actions",
+				"ms-azuretools.azure-dev",
+				"ms-azuretools.vscode-azurefunctions",
+				"ms-azuretools.vscode-bicep",
+				"ms-vscode.js-debug",
+				"ms-vscode.vscode-node-azure-pack",
+				"humao.rest-client",
+				"sapse.vscode-cds",
+				"SAPSE.sap-ux-fiori-tools-extension-pack",
+				"mechatroner.rainbow-csv"
+			]
+		}
+	},
+	"forwardPorts": [
+		8080,5432,4004
+	],
+	"postCreateCommand": "cd src/ && npm install && npm add -g @sap/cds-dk && cd ../ && chmod -R a+x /workspaces/jubilant-tribble/hooks",
+	"remoteUser": "node",
+	"hostRequirements": {
+		"memory": "8gb"
+	}
+}

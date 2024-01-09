@@ -1,0 +1,37 @@
+{
+  "requires": {
+    "db": {
+      "kind": "postgres",
+      "impl": "@cap-js/postgres",
+      "[development]": {
+        "credentials": {
+          "host": "localhost",
+          "port": 5432,
+          "database": "postgres",
+          "user": "postgres",
+          "password": "postgres"
+        }
+      },
+      "[hybrid]": {
+        "credentials": {
+          "host": "",
+          "port": 5432,
+          "database": "citus",
+          "user": "citus",
+          "password": "",
+          "ssl": true
+        }
+      },
+      "[production]": {
+        "credentials": {
+          "host": "",
+          "port": 5432,
+          "database": "citus",
+          "user": "citus",
+          "password": "",
+          "ssl": true
+        }
+      }
+    }
+  }
+}
