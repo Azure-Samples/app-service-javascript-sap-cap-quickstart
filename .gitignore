@@ -34,4 +34,4 @@ mta_archives/
 @cds-models
 
 .azure/
-.env
+!templates/.env
