@@ -21,16 +21,6 @@
           "password": "",
           "ssl": true
         }
-      },
-      "[production]": {
-        "credentials": {
-          "host": "",
-          "port": 5432,
-          "database": "citus",
-          "user": "citus",
-          "password": "",
-          "ssl": true
-        }
       }
     }
   }
