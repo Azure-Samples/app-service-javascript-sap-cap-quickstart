@@ -21,6 +21,16 @@
           "password": "",
           "ssl": true
         }
+      },
+      "[azure]": {
+        "credentials": {
+          "host": "",
+          "port": 5432,
+          "database": "citus",
+          "user": "citus",
+          "password": "",
+          "ssl": true
+        }
       }
     }
   }
