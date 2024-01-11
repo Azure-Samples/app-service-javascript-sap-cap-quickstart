@@ -13,24 +13,34 @@ async function autodeploy() {
 cds.on("bootstrap", async () => {
   LOG.info("bootstrapping for CDS ENV:", process.env.CDS_ENV)
 
-  const { ODATA_URL, ODATA_USERNAME, ODATA_USERPWD, APIKEY_HEADERNAME, APIKEY, SAP_CLIENT, POSTGRES_USERPWD, POSTGRES_HOSTNAME, SKIP_AUTODEPLOY } = process.env
-  
+  const {
+    ODATA_URL,
+    ODATA_USERNAME,
+    ODATA_USERPWD,
+    APIKEY_HEADERNAME,
+    APIKEY,
+    SAP_CLIENT,
+    POSTGRES_USERPWD,
+    POSTGRES_HOSTNAME,
+    SKIP_AUTODEPLOY
+  } = process.env
+
   cds.requires.s4_bp.credentials.url = ODATA_URL
-  if(ODATA_USERNAME !== "" && ODATA_USERPWD !== ""){
+  if (ODATA_USERNAME && ODATA_USERPWD) {
     cds.requires.s4_bp.credentials.username = ODATA_USERNAME
     cds.requires.s4_bp.credentials.password = ODATA_USERPWD
     //See possible values: https://sap.github.io/cloud-sdk/api/v3/types/sap_cloud_sdk_connectivity.AuthenticationType.html
     cds.requires.s4_bp.credentials.authentication = "BasicAuthentication"
-  }else{
+  } else {
     LOG.info("using only API key due to missing user credentials...")
     cds.requires.s4_bp.credentials.authentication = "NoAuthentication"
   }
-  
-  if (APIKEY !== ""){
+
+  if (APIKEY) {
     LOG.info("assigning api key for header name " + APIKEY_HEADERNAME + "...")
     cds.requires.s4_bp.credentials.headers[APIKEY_HEADERNAME] = APIKEY
   }
-  if (SAP_CLIENT !== ""){
+  if (SAP_CLIENT) {
     LOG.info("adding sap-client " + SAP_CLIENT + " to OData request...")
     cds.requires.s4_bp.credentials.queries["sap-client"] = SAP_CLIENT
   }
@@ -39,7 +49,6 @@ cds.on("bootstrap", async () => {
     cds.env.requires.db.credentials.host = POSTGRES_HOSTNAME
     cds.env.requires.db.credentials.password = POSTGRES_USERPWD
   }
-  
 
   if (!SKIP_AUTODEPLOY) await autodeploy()
 })

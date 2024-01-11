@@ -1,2 +1,1 @@
-
-using from './capazure/annotations';
+using from './capazure/annotations-bupa-local';

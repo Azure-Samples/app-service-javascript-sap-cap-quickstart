@@ -29,3 +29,26 @@ Content-Type: application/json
   "FirstName": "Tony",
   "LastName": "Stark"
 }
+
+###### REMOTE
+### get csrf token
+# @name csrf
+GET {{$dotenv ODATA_URL}}/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('LBW-CUST04')
+Authorization: Basic {{$dotenv ODATA_USERNAME}}:{{$dotenv ODATA_USERPWD}}
+X-CSRF-Token: Fetch
+
+### update
+PATCH {{$dotenv ODATA_URL}}/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('LBW-CUST04')
+Content-Type: application/json
+X-CSRF-TOKEN: {{csrf.response.headers.x-csrf-token}}
+Authorization: Basic {{$dotenv ODATA_USERNAME}}:{{$dotenv ODATA_USERPWD}}
+
+{
+  "FirstName": "Tony",
+  "LastName": "Stark"
+}
+
+### re-get the entry
+GET {{$dotenv ODATA_URL}}/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('LBW-CUST04')
+?$format=json
+Authorization: Basic {{$dotenv ODATA_USERNAME}}:{{$dotenv ODATA_USERPWD}}

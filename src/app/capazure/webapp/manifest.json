@@ -67,8 +67,6 @@
                 "dataSource": "mainService",
                 "settings": {
                     "operationMode": "Server",
-                    "groupId": "$auto",
-                    "updateGroupId": "$auto",
                     "autoExpandSelect": true
                 }
             },
@@ -88,7 +86,7 @@
                     "target": "BusinessPartnersList"
                 },
                 {
-                    "pattern": "BusinessPartners({key}):?query:",
+                    "pattern": "BusinessPartnersLocal({key}):?query:",
                     "name": "BusinessPartnersObjectPage",
                     "target": "BusinessPartnersObjectPage"
                 }
@@ -100,10 +98,10 @@
                     "name": "sap.fe.templates.ListReport",
                     "options": {
                         "settings": {
-                            "contextPath": "/BusinessPartners",
+                            "contextPath": "/BusinessPartnersLocal",
                             "variantManagement": "Page",
                             "navigation": {
-                                "BusinessPartners": {
+                                "BusinessPartnersLocal": {
                                     "detail": {
                                         "route": "BusinessPartnersObjectPage"
                                     }
@@ -120,7 +118,7 @@
                     "options": {
                         "settings": {
                             "editableHeaderContent": false,
-                            "contextPath": "/BusinessPartners"
+                            "contextPath": "/BusinessPartnersLocal"
                         }
                     }
                 }
