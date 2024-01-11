@@ -6,10 +6,9 @@
   "repository": "<Add your repository here>",
   "license": "UNLICENSED",
   "scripts": {
-    "start": "cds-serve --profile production",
-    "start:development": "cds-serve --profile development --open capazure/webapp/index.html?sap-ui-xx-viewCache=false",
-    "start:hybrid": "cds-serve --profile hybrid --open capazure/webapp/index.html?sap-ui-xx-viewCache=false",
-    "watch-capazure": "cds watch --open capazure/webapp/index.html?sap-ui-xx-viewCache=false",
+    "start": "cds-serve",
+    "start:development": "cds watch --profile development --open capazure/webapp/index.html?sap-ui-xx-viewCache=false",
+    "start:hybrid": "cds watch --profile hybrid --open capazure/webapp/index.html?sap-ui-xx-viewCache=false",
     "build:cf": "mbt build --mtar archive"
   },
   "dependencies": {
