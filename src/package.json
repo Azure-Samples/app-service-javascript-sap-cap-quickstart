@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "//start": "npx cds-serve --profile azure",
-    "start": "cds run --profile azure",
+    "start": "npx cds run --profile azure",
     "start:development": "cds watch --profile development --open capazure/webapp/index.html?sap-ui-xx-viewCache=false",
     "start:hybrid": "cds watch --profile hybrid --open capazure/webapp/index.html?sap-ui-xx-viewCache=false",
     "build:cf": "mbt build --mtar archive"
