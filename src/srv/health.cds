@@ -1,8 +1,6 @@
-@path: '/'
-service HealthCheck {
-    entity health {
+service Health {
+    entity check {
         key pid    : Integer;
             status : String;
     }
-
 }

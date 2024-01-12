@@ -1,11 +1,11 @@
 const cds = require("@sap/cds")
-class HealthCheckService extends cds.ApplicationService {
+class HealthService extends cds.ApplicationService {
   async init() {
-    this.on("READ", "health", async (req) => {
+    this.on("READ", "check", async (req) => {
       return { pid: 0, status: "OK" }
     })
     return super.init()
   }
 }
 
-module.exports = HealthCheckService
+module.exports = HealthService
