@@ -6,10 +6,9 @@
   "repository": "<Add your repository here>",
   "license": "UNLICENSED",
   "scripts": {
-    "start": "cds-serve --profile production",
-    "start:development": "cds-serve --profile development --open capazure/webapp/index.html?sap-ui-xx-viewCache=false",
-    "start:hybrid": "cds-serve --profile hybrid --open capazure/webapp/index.html?sap-ui-xx-viewCache=false",
-    "watch-capazure": "cds watch --open capazure/webapp/index.html?sap-ui-xx-viewCache=false",
+    "start": "cds-serve --profile azure",
+    "start:development": "cds watch --profile development --open capazure/webapp/index.html?sap-ui-xx-viewCache=false",
+    "start:hybrid": "cds watch --profile hybrid --open capazure/webapp/index.html?sap-ui-xx-viewCache=false",
     "build:cf": "mbt build --mtar archive"
   },
   "dependencies": {
@@ -19,21 +18,22 @@
     "@sap-cloud-sdk/resilience": "^3.9.0",
     "@sap/cds": "^7",
     "@sap/xssec": "^3.6.1",
+    "cds-plugin-ui5": "^0.7.4",
+    "dotenv": "^16.3.1",
     "express": "^4",
     "passport": "^0.7.0"
   },
   "devDependencies": {
     "@sap/cds-dk": "^7",
-    "@sap/eslint-plugin-ui5-jsdocs": "^2.0.5",
+    "@sap/eslint-plugin-ui5-jsdocs": "^2.0.8",
     "@sap/ux-specification": "^1.120.1",
     "@sapui5/ts-types": "^1.92.2",
     "chai": "^4.3.10",
     "chai-as-promised": "^7.1.1",
     "chai-subset": "^1.6.0",
-    "dotenv": "^16.3.1",
     "eslint": "^7.32.0",
     "jest": "^29.7.0",
-    "sqlite3": "^5.1.6"
+    "sqlite3": "^5.1.7"
   },
   "cds": {
     "requires": {

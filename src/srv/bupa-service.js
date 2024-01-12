@@ -1,57 +1,60 @@
+const cds = require("@sap/cds")
+const LOG = cds.log("cache")
+
 class BuPaService extends cds.ApplicationService {
-  async query({ fromCache, req }) {
-    const { SELECT: _SELECT } = req.query[Object.getOwnPropertySymbols(req.query)[1]]
-    const BusinessPartner = fromCache
-      ? cds.entities.BusinessPartner
-      : cds.entities["API_BUSINESS_PARTNER.BusinessPartners"]
-    if (req.params.length > 0) {
-      // single BP
-      const { columns } = _SELECT
-      const q = SELECT.one.from(BusinessPartner).where(req.params[0]).columns(columns)
-      const entity = fromCache ? await q : await (await cds.connect.to("s4_bp")).run(q)
-      return entity
-    } else {
-      // all BPs
-      const { limit, orderBy, where } = _SELECT
-      const q = SELECT.from(BusinessPartner).where(where).limit(limit).orderBy(orderBy)
-      const entitySet = fromCache ? await q : await (await cds.connect.to("s4_bp")).run(q)
-      entitySet["$count"] = entitySet.length
-      return entitySet
-    }
+  async isCached({ req }) {
+    const { limit, orderBy } = req.query.SELECT
+    const { BusinessPartnerLocal } = cds.entities
+    const q = SELECT.from(BusinessPartnerLocal).limit(limit).orderBy(orderBy)
+    const entitySet = await q
+    LOG.info(`retrieved ${entitySet.length} Business Partners from "cache"`)
+    return entitySet.length > 0
   }
 
   async cache(entry) {
-    const { BusinessPartner } = cds.entities
-    await INSERT.into(BusinessPartner).entries(entry)
+    const BusinessPartner = cds.entities["API_BUSINESS_PARTNER.BusinessPartnersRemote"]
+    const { BusinessPartnerLocal } = cds.entities
+    if (!entry) { //> we're working the entire entity set
+      const q = SELECT.from(BusinessPartner)
+      const allBPs = await (await cds.connect.to("s4_bp")).run(q)
+      await INSERT.into(BusinessPartnerLocal).entries(allBPs)
+      LOG.info(`retrieved and "cached" ${allBPs.length} Business Partners from S/4`)
+    } else { //> we're working a single entity
+      const q = SELECT.from(BusinessPartner).where({ BusinessPartner: entry.BusinessPartner })
+      const singleBP = await (await cds.connect.to("s4_bp")).run(q)
+      const { BusinessPartnerLocal } = cds.entities
+      singleBP[0].ID = entry.ID //> re-equip remote entry with local UUID
+      await UPSERT.into(BusinessPartnerLocal).entries(singleBP)
+      LOG.info(`re-"cached" Business Partner ${entry.BusinessPartner}`)
+    }
   }
 
-  async update({ cache: inCache, entry }) {
-    const BusinessPartner = inCache
-      ? cds.entities.BusinessPartner
-      : cds.entities["API_BUSINESS_PARTNER.BusinessPartners"]
+  async updateRemote({ entry }) {
+    // update remote
+    const BusinessPartner = cds.entities["API_BUSINESS_PARTNER.BusinessPartnersRemote"]
     const q = UPDATE(BusinessPartner).with(entry).where({ BusinessPartner: entry.BusinessPartner })
-    const target = inCache ? cds : await cds.connect.to("s4_bp")
-    return target.run(q)
+    await (await cds.connect.to("s4_bp")).run(q)
+    LOG.info(`updated remote Business Partner ${entry.BusinessPartner}`)
+    // re-read remote and update "cache"
+    const _entry = { ID: entry.ID, ...entry} //> re-equip entry with local UUID for further processing...
+    await this.cache(_entry)
   }
 
   async init() {
-    this.on("READ", "BusinessPartners", async (req) => {
-      let result = await this.query({ fromCache: true, req })
-      if (!result || result.length === 0) {
-        result = await this.query({ fromCache: false, req })
-        if (result) {
-          await this.cache(result)
-        }
+    this.before("READ", "BusinessPartnersLocal", async (req) => {
+      // only looking at entity sets here
+      if (req.params.length > 0) return
+
+      const cached = await this.isCached({ req })
+      if (!cached) {
+        LOG.info("caching Business Partners...")
+        await this.cache()
       }
-      return result
     })
-    this.on("UPDATE", "BusinessPartners", async (req) => {
-      try {
-        await Promise.all([this.update({ cache: true, entry: req.data }), this.update({ cache: false, entry: req.data })])
-      } catch (err) {
-        return req.error(500, err)
-      }
-      return req.data
+
+    this.after("UPDATE", "BusinessPartnersLocal", async (req) => {
+      LOG.info(`updating remote Business Partner ${req.BusinessPartner}...`)
+      await this.updateRemote({ entry: req })
     })
 
     return super.init()

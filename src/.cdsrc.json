@@ -22,7 +22,7 @@
           "ssl": true
         }
       },
-      "[production]": {
+      "[azure]": {
         "credentials": {
           "host": "",
           "port": 5432,
