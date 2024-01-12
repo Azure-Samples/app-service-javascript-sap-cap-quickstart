@@ -4,28 +4,10 @@ const cds = require("@sap/cds")
 const LOG = cds.log("server.js")
 
 async function autodeploy() {
-  let db
-  try {
-    db = await cds.connect.to("db")
-  } catch (err) {
-    LOG.error("connection to db failed:", err)
-  }
-  LOG.info(new Date().toString() + " - connected to db...")
-  let m
-  try {
-    m = await cds.load("*")
-  } catch (err) {
-    LOG.error("model loading failed:", err)
-  }
-  LOG.info(new Date().toString() + " - model loaded...")
-
+  const db = await cds.connect.to("db")
+  const m = await cds.load("*")
   LOG.info("deploying...")
-  try {
-    await cds.deploy(m).to(db)
-  } catch (err) {
-    LOG.error("deployment failed:", err)
-  }
-  LOG.info(new Date().toString() + " - autodeploy finished...")
+  await cds.deploy(m).to(db)
 }
 
 cds.on("bootstrap", async () => {
@@ -67,7 +49,6 @@ cds.on("bootstrap", async () => {
     cds.env.requires.db.credentials.host = POSTGRES_HOSTNAME
     cds.env.requires.db.credentials.password = POSTGRES_USERPWD
   }
-  LOG.info("...pssst, creds:", cds.env.requires.db.credentials)
 
   LOG.info(new Date().toString() + " - starting autodeploy...")
   if (!SKIP_AUTODEPLOY) await autodeploy()
