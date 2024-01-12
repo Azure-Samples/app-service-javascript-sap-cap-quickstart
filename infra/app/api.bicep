@@ -10,7 +10,7 @@ param appSettings object = {}
 param useAuthSettingsv2 bool = false
 param keyVaultName string
 param serviceName string = 'sap-cap-api'
-param healthCheckPath string = '/health'
+param healthCheckPath string = '/odata/v4/health/check'
 param use32BitWorkerProcess bool = false
 
 param alwaysOn bool = true
