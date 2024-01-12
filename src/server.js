@@ -56,5 +56,6 @@ cds.on("bootstrap", async () => {
     cds.env.requires.db.credentials.password = POSTGRES_USERPWD
   }
 
+  LOG.info(new Date().toString() + " - starting autodeploy...")
   if (!SKIP_AUTODEPLOY) await autodeploy()
 })

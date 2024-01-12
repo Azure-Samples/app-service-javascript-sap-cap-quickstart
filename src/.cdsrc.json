@@ -30,6 +30,10 @@
           "user": "citus",
           "password": "",
           "ssl": true
+        },
+        "pool": {
+          "acquireTimeoutMillis": 20000,
+          "destroyTimeoutMillis": 20000
         }
       }
     }
