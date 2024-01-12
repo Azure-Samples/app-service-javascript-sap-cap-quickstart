@@ -14,7 +14,6 @@ cds.on("bootstrap", async () => {
   LOG.info("bootstrapping for CDS ENV:", process.env.CDS_ENV)
 
   const {
-    ODATA_URL,
     ODATA_USERNAME,
     ODATA_USERPWD,
     APIKEY_HEADERNAME,
@@ -24,6 +23,12 @@ cds.on("bootstrap", async () => {
     POSTGRES_HOSTNAME,
     SKIP_AUTODEPLOY
   } = process.env
+
+  let ODATA_URL = process.env.ODATA_URL
+  // remove trailing slash from ODATA_URL
+  if (ODATA_URL.endsWith('/')) {
+    ODATA_URL = ODATA_URL.slice(0, -1);
+  }
 
   cds.requires.s4_bp.credentials.url = ODATA_URL
   if (ODATA_USERNAME && ODATA_USERPWD) {
@@ -46,6 +51,7 @@ cds.on("bootstrap", async () => {
   }
 
   if (process.env.CDS_ENV && process.env.CDS_ENV !== "development") {
+    LOG.info("loading postgres credentials for citus on " + POSTGRES_HOSTNAME + " to cache business partners...")
     cds.env.requires.db.credentials.host = POSTGRES_HOSTNAME
     cds.env.requires.db.credentials.password = POSTGRES_USERPWD
   }
