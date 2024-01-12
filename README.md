@@ -62,9 +62,11 @@ Use any OData enabled SAP system:
 
 ### Quickstart 🚀
 
-0. familiarize yourself with the [SAP CAP for Node.js jumpstart guide](https://cap.cloud.sap/docs/get-started/jumpstart) and optionally browse SAP Developer tutorials like [this beginner guide](https://developers.sap.com/tutorials/cp-apm-nodejs-create-service.html) and [this end-to-end focused one](https://developers.sap.com/group.btp-app-cap-create.html).
+Familiarize yourself with the [SAP CAP for Node.js jumpstart guide](https://cap.cloud.sap/docs/get-started/jumpstart) and optionally browse SAP Developer tutorials like [this beginner guide](https://developers.sap.com/tutorials/cp-apm-nodejs-create-service.html) and [this end-to-end focused one](https://developers.sap.com/group.btp-app-cap-create.html).
 
 #### Deploy time
+
+0. Run `azd auth login` and `az login` to authenticate with Azure and Azure Developer CLI (AZD). Azure CLI is required for the runtime update of CosmosDB credentials on the Azure App Service during post-provision. See [here](hooks/handleAzureAuthAndDBConnectionString.ps1) for reference.
 
 1. Run the following command to package a deployable copy of your application, provision the template's infrastructure to Azure and also deploy the application code to those newly provisioned resources.
 
