@@ -1,12 +1,13 @@
 {
   "name": "app-service-javascript-sap-cap-quickstart",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "Sample project showcasing SAP CAP consumption from SAP S4 with Azure App Service and SAP OpenUI5",
   "repository": "<Add your repository here>",
   "license": "UNLICENSED",
   "scripts": {
-    "start": "cds-serve --profile azure",
+    "//start": "npx cds-serve --profile azure",
+    "start": "cds run --profile azure",
     "start:development": "cds watch --profile development --open capazure/webapp/index.html?sap-ui-xx-viewCache=false",
     "start:hybrid": "cds watch --profile hybrid --open capazure/webapp/index.html?sap-ui-xx-viewCache=false",
     "build:cf": "mbt build --mtar archive"
