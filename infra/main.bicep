@@ -35,7 +35,7 @@ param apimApiSAPBackendURL string = 'https://sandbox.api.sap.com/s4hanacloud/sap
 param useAPIM bool = false
 
 @description('Entra ID Application ID registered for Azure API Management. Needed to automatically assign API executing rights to Azure App Service.')
-param apimEntraIdAppId string = '********-****-****-****-************'
+param apimEntraIdAppId string = ''//'********-****-****-****-************'
 
 @description('Flag to use Entra ID authentication feature of Azure App Service')
 param useEntraIDAuthentication bool = false
@@ -253,7 +253,7 @@ module apimApi './app/apim-api.bicep' = if (useAPIM) {
 }
 
 // App outputs
-output RESOURCE_GROUP_NAME string = rg.name
+output AZURE_RESOURCE_GROUP string = rg.name
 output APPLICATIONINSIGHTS_CONNECTION_STRING string = monitoring.outputs.applicationInsightsConnectionString
 output AZURE_KEY_VAULT_ENDPOINT string = keyVault.outputs.endpoint
 output AZURE_KEY_VAULT_NAME string = keyVault.outputs.name

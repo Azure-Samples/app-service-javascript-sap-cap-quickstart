@@ -67,7 +67,7 @@ try {
         $APIM_API_SCOPES_JSON_ROOT = @()
         $APIM_API_SCOPES_JSON_LIST = @()
         $APIM_API_METADATA = $null
-        if($null -ne $env:AZURE_APIM_APP_ID){
+        if($env:AZURE_APIM_APP_ID -ne ''){
             Write-Output "Reading Azure APIM app registration metadata..."
             #Read scopes array from Azure APIM app registration
             $APIM_API_METADATA = az ad app show --id $env:AZURE_APIM_APP_ID | ConvertFrom-Json
@@ -201,8 +201,8 @@ try {
         }
 
         # In case web app shall be authorized to call SAP OData api via Azure APIM 
-        Write-Output "Adding web app registration as pre-authorized client to the Azure APIM app registration..."
-        if($null -ne $env:AZURE_APIM_APP_ID){
+        if($env:AZURE_APIM_APP_ID -ne ''){
+            Write-Output "Adding web app registration as pre-authorized client to the Azure APIM app registration..."
             #Compose PATCH request to add the web app as pre-authorized client to the Azure APIM app registration
             
             $delegatedPermissions = @()
