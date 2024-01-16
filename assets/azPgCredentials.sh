@@ -11,7 +11,7 @@ AZENV_FILE=$(find $searchPath -name '.env')
 serverName="$COSMOSDB_CLUSTER_NAME-c"
 
 # Call cosmos DB API to get the FQDN to compose the connection string
-FQDN=$(az cosmosdb postgres cluster server show --server-name $serverName --cluster-name $COSMOSDB_CLUSTER_NAME --resource-group $RESOURCE_GROUP_NAME --subscription $AZURE_SUBSCRIPTION_ID --query "fullyQualifiedDomainName" -o tsv)
+FQDN=$(az cosmosdb postgres cluster server show --server-name $serverName --cluster-name $COSMOSDB_CLUSTER_NAME --resource-group $AZURE_RESOURCE_GROUP --subscription $AZURE_SUBSCRIPTION_ID --query "fullyQualifiedDomainName" -o tsv)
 sed -i -e "s/POSTGRES_HOSTNAME=.*/POSTGRES_HOSTNAME=$FQDN/g" $(pwd)/.env
 
 # Read Cosmos DB password from the Azure Key Vault
