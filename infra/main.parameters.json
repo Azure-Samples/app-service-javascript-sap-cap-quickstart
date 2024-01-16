@@ -10,6 +10,18 @@
     },
     "principalId": {
       "value": "${AZURE_PRINCIPAL_ID}"
+    },
+    "oDataUrl": {
+      "value": "${ODATA_URL}"
+    },
+    "oDataSapClient": {
+      "value": "${ODATA_SAP_CLIENT}"
+    },
+    "oDataUsername": {
+      "value": "${ODATA_USERNAME}"
+    },
+    "oDataUserpwd": {
+      "value": "${ODATA_USERPWD}"
     }
   }
 }

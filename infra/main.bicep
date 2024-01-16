@@ -51,6 +51,9 @@ param principalId string = ''
 @description('SAP OData service URL')
 param oDataUrl string = 'https://sandbox.api.sap.com/s4hanacloud'
 
+@description('SAP client for OData service')
+param oDataSapClient string = ''
+
 @description('SAP OData user name')
 param oDataUsername string = ''
 
@@ -109,6 +112,7 @@ module cosmos './core_local/database/cosmos/postgresql/cosmos-psql-db.bicep' = {
 var cosmosDBSecretName = '${abbrs.keyVaultVaults}secret-cosmosdb-password'
 var myAppSettings = {
   ODATA_URL: oDataUrl
+  SAP_CLIENT: oDataSapClient
   ODATA_USERNAME: oDataUsername
   ODATA_USERPWD: '@Microsoft.KeyVault(SecretUri=${keyVault.outputs.endpoint}secrets/${abbrs.keyVaultVaults}secret-odata-password)'
   APIKEY: '@Microsoft.KeyVault(SecretUri=${keyVault.outputs.endpoint}secrets/${abbrs.keyVaultVaults}secret-apikey)'

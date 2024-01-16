@@ -38,6 +38,7 @@ The `azd` CLI will ask you to provide the following information:
 
 > [!NOTE]
 > The parameters around the OData service are contained in the `.bicep` template i.e., in the `infra/main.bicep` file. You can provide them in different ways. The easiest way is to add them to the `infra/main.parameters.json` as references to environment variables in analogy to the already existing parameters available in the file. You can also add them after the deployment in the Azure Portal as we have defaulted them in the templates.  
+> 🚧 Can be set with `azd env set`, but requires environment to be set up upfront.
 
 After a successful deployment browse your new app powered by the SAP Cloud SDK (it takes a while the first time ☕).
 
