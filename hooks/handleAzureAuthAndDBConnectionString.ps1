@@ -22,12 +22,12 @@ try {
 
     Write-Output "Retrieving CosmosDB for PSQL (citus) FQDN..."
     # Call cosmos DB API to get the FQDN to compose the connection string
-    $CosmosDBMetadata = az cosmosdb postgres cluster server show --server-name $serverName --cluster-name $env:COSMOSDB_CLUSTER_NAME --resource-group $env:RESOURCE_GROUP_NAME --subscription $env:AZURE_SUBSCRIPTION_ID | ConvertFrom-Json
+    $CosmosDBMetadata = az cosmosdb postgres cluster server show --server-name $serverName --cluster-name $env:COSMOSDB_CLUSTER_NAME --resource-group $env:AZURE_RESOURCE_GROUP --subscription $env:AZURE_SUBSCRIPTION_ID | ConvertFrom-Json
     $FQDN = $CosmosDBMetadata.fullyQualifiedDomainName
 
     Write-Output "Storing CosmosDB for PSQL (citus) FQDN as POSTGRES_HOSTNAME in azure app settings..."
     # Store the FQDN on the Azure App Service configuration as normal key value pair
-    az webapp config appsettings set --name $env:WEB_APP_NAME --resource-group $env:RESOURCE_GROUP_NAME --settings POSTGRES_HOSTNAME=$FQDN --subscription $env:AZURE_SUBSCRIPTION_ID
+    az webapp config appsettings set --name $env:WEB_APP_NAME --resource-group $env:AZURE_RESOURCE_GROUP --settings POSTGRES_HOSTNAME=$FQDN --subscription $env:AZURE_SUBSCRIPTION_ID
 
     Write-Output "Retrieving CosmosDB for PSQL (citus) admin password..."
     # Read Cosmos DB admin password from the Azure Key Vault
@@ -45,9 +45,9 @@ try {
 
     Write-Output "Injecting CosmosDB for PSQL (citus) connection string into the Azure App Service configuration..."
     # Inject the connection string into the Azure App Service configuration as normal key value pair
-    #az webapp config appsettings set --name $WEB_APP_NAME --resource-group $RESOURCE_GROUP_NAME --settings COSMOSDB_CONNECTION_STRING=$connectionString --subscription $AZURE_SUBSCRIPTION_ID
+    #az webapp config appsettings set --name $WEB_APP_NAME --resource-group $AZURE_RESOURCE_GROUP --settings COSMOSDB_CONNECTION_STRING=$connectionString --subscription $AZURE_SUBSCRIPTION_ID
     # Inject the connection string into the Azure App Service configuration https://learn.microsoft.com/cli/azure/webapp/config/connection-string?view=azure-cli-latest
-    az webapp config connection-string set --resource-group $env:RESOURCE_GROUP_NAME --name $env:WEB_APP_NAME -t postgresql --settings psql1=$connectionString --subscription $env:AZURE_SUBSCRIPTION_ID
+    az webapp config connection-string set --resource-group $env:AZURE_RESOURCE_GROUP --name $env:WEB_APP_NAME -t postgresql --settings psql1=$connectionString --subscription $env:AZURE_SUBSCRIPTION_ID
 
     if ($env:USE_EntraIDAuthentication -eq "false") {
 
