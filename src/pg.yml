@@ -3,6 +3,8 @@ services:
     image: postgres:16-alpine
     restart: always
     environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
       - "5432:5432"
