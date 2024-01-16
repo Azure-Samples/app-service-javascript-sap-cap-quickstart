@@ -21,6 +21,7 @@ If you are not using one of these option you need to install the `azd` locally o
 
 ### The easy way
 
+> 🚧 Explain to browse to the right directory.
 The easiest way to deploy the necessary infrastructure and the application code via `azd` is:
 
 *Step 1*: Key in one command: `azd up`.
@@ -52,6 +53,7 @@ The `azd up` command comprises three steps of the deployment:
 
 To gain a bit more insight you can split your deployment accordingly via:
 
+> 🚧 Explain to browse to the right directory.
 1. Execution of `azd package`: this will package your code artifacts
 2. Execution of `azd provision`: this will exclusively set up your infrastructure.
 3. Execution of `azd deploy`: this will deploy your application to the provisioned infrastructure.

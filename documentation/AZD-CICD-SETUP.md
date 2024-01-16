@@ -21,6 +21,7 @@ You must supply some the requested GitHub information and confirm that the code 
 
 The GitHub Action that serves as template is located in the repository as `.github/workflows/azure-dev.yml`. It contains the following code:
 
+> 🚧 Set to the right working directory.
 ```yaml
 on:
   workflow_dispatch:
