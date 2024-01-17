@@ -10,7 +10,8 @@
     "start": "npx cds run --profile azure",
     "start:development": "cds watch --profile development --open capazure/webapp/index.html?sap-ui-xx-viewCache=false",
     "start:hybrid": "cds watch --profile hybrid --open capazure/webapp/index.html?sap-ui-xx-viewCache=false",
-    "build:cf": "mbt build --mtar archive"
+    "build:cf": "mbt build --mtar archive",
+    "test": "jest"
   },
   "dependencies": {
     "@cap-js/postgres": "^1.4.1",
