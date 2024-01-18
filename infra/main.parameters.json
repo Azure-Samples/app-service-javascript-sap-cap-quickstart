@@ -22,6 +22,9 @@
     },
     "oDataUserpwd": {
       "value": "${ODATA_USERPWD}"
+    },
+    "useEntraIDAuthentication": {
+      "value": "${APP_USE_ENTRAID_AUTHENTICATION}"
     }
   }
 }
