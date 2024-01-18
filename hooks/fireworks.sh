@@ -10,6 +10,23 @@ multiple=0
 nsingle=5
 nmultiple=5
 
+# Based on:
+# https://superuser.com/questions/1667569/how-can-i-make-clear-preserve-entire-scrollback-buffer
+function clear() (
+   if [ "$#" -ne 0 ]; then
+      command clear "$@"
+      exit
+   fi
+   h="$(tput lines 2>/dev/null)"
+   if [ "$?" -eq 0 ]; then
+      until [ "$h" -le 1 ]; do
+         printf '\n'
+         h=$((h-1))
+      done
+   fi
+   command clear -x
+)
+
 function colorstr()
 {
     local  row=$1
