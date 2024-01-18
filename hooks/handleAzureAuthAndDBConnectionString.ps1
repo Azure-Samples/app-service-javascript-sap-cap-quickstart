@@ -192,7 +192,7 @@ try {
         #https://learn.microsoft.com/cli/azure/webapp/auth/config-version?view=azure-cli-latest#az-webapp-auth-config-version-upgrade
         #https://learn.microsoft.com/cli/azure/webapp/auth?view=azure-cli-latest#az-webapp-auth-set
         $AUTH_SET_CMD = az webapp auth set --name $env:WEB_APP_NAME `
-                                           --resource-group $env:RESOURCE_GROUP_NAME `
+                                           --resource-group $env:AZURE_RESOURCE_GROUP `
                                            --subscription $env:AZURE_SUBSCRIPTION_ID `
                                            --body $authSettingsJson | ConvertFrom-Json
         if(!$AUTH_SET_CMD){

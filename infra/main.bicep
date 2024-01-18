@@ -253,7 +253,7 @@ module apimApi './app/apim-api.bicep' = if (useAPIM) {
 }
 
 // App outputs
-output RESOURCE_GROUP_NAME string = rg.name
+output AZURE_RESOURCE_GROUP string = rg.name
 output APPLICATIONINSIGHTS_CONNECTION_STRING string = monitoring.outputs.applicationInsightsConnectionString
 output AZURE_KEY_VAULT_ENDPOINT string = keyVault.outputs.endpoint
 output AZURE_KEY_VAULT_NAME string = keyVault.outputs.name
