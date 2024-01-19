@@ -39,7 +39,7 @@ Implementations using the approach described by this repo expand the [feature sc
 * OpenAPI + client generator managed by SAP
 * Seamless integration with Azure native databases Azure Cosmos DB, purpose built for cloud native apps
 
-This example uses [SAP Fiori Elements](https://sapui5.hana.ondemand.com/sdk/#/topic/03265b0408e2432c9571d6b3feb6b1fd) for rendering the UI. Learn more about other template engines [here](https://expressjs.com/en/resources/template-engines.html).
+This example uses a [UI5-based](https://openui5.org) app for rendering the UI. Learn more about other template engines [here](https://expressjs.com/en/resources/template-engines.html).
 
 ## Getting Started 🛫
 
