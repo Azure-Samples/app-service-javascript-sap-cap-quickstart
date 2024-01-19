@@ -13,7 +13,7 @@ PoC for using PostgreSQL on the persistence layer acting as a transparent proxy 
 $> cds watch
 
 # ...or...
-## works with Azure Database for PostgreSQL
+## works with Azure Cosmos DB for PostgreSQL
 $> cds watch --profile hybrid
 ```
 
@@ -33,8 +33,8 @@ The Fiori Elements UI is at `http(s)://<host>/capazure/index.html`
 There are 3 configuration profiles for the DB connection predefined in `/src/.cdsrc.json`:
 
 0. `development`: assumes a local dockerized PostgreSQL DB as defined in `/src/pg.yml`
-1. `hybrid`: CAP standard `hybrid` profile extended for Azure's "CosmosDB for PostgreSQL, Citrus flavour"
-2. `azure`: CAP standard `production` profile adjusted for Azure's "CosmosDB for PostgreSQL, Citrus flavour". Intended for deployment only.
+1. `hybrid`: CAP standard `hybrid` profile extended for Azure's "CosmosDB for PostgreSQL, Citus flavour"
+2. `azure`: CAP standard `production` profile adjusted for Azure's "CosmosDB for PostgreSQL, Citus flavour". Intended for deployment only.
 
 For `development` and `hybrid`, the env file in `/.env` is the source for Azure PostgreSQL credentials, in conjunction with `/src/.cdsrc.json`.  
 In `production`, the Azure PostgreSQL credentials are provided automatically by the Azure environment.
@@ -71,5 +71,5 @@ Once deployed, the CAP app can be monitored via
 
 ## sample measurements
 
-initial load of all BPs, querying the remote service and init'ing the local proxy: 1747 ms  
+initial load of all BPs (~700), querying the remote service and init'ing the local proxy: 1747 ms  
 subsequent load of all BPs, then from pg, acting as local proxy: 79 ms
