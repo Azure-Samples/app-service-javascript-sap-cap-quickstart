@@ -8,7 +8,7 @@ Understand the difference between Azure Database for PostreSQL and Cosmos DB for
 
 The project's primary purpose is to set you up for success for your SAP extension project on Azure and reduce the lead time to your first successful deployment as much as possible with developer friendly commands.
 
-It uses the Business Partner OData v2 API from SAP S/4HANA as an example.
+It uses the [Business Partner OData v2 API](https://api.sap.com/api/OP_API_BUSINESS_PARTNER_SRV/resource/Business_Partner) from SAP S/4HANA as an example.
 
 The project is setup as per the best practices advocated by the [Azure Developer CLI](https://learn.microsoft.com/azure/developer/azure-developer-cli/overview) and referenced as [official awesome azd template](https://azure.github.io/awesome-azd/?tags=sapcloudsdk).
 
