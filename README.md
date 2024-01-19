@@ -2,7 +2,7 @@
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=740966807)
 
-This repos serves as quick-start project showcasing [SAP Cloud Application Programming Model (CAP) for Node.js](https://cap.cloud.sap/docs/get-started/jumpstart) OData consumption from SAP S/4HANA running on Azure App Services backed with [Azure Cosmos DB for PostgreSQL](https://learn.microsoft.com/azure/cosmos-db/postgresql/introduction). SAP offers a native module [cds-dbs](https://github.com/cap-js/cds-dbs/tree/main/postgres) for postgres integration.
+This repos serves as quick-start project showcasing [SAP Cloud Application Programming Model (CAP) for Node.js](https://cap.cloud.sap/docs/get-started/jumpstart) OData consumption from SAP S/4HANA running on Azure App Services backed with [Azure Cosmos DB for PostgreSQL](https://learn.microsoft.com/azure/cosmos-db/postgresql/introduction). SAP offers a native module [cds-dbs](https://github.com/cap-js/cds-dbs/tree/main/postgres) for PostgreSQL integration.
 
 Understand the difference between Azure Database for PostreSQL and Cosmos DB for PostgreSQL from [this post](https://devblogs.microsoft.com/cosmosdb/azure-cosmos-db-for-postgresql-vs-azure-database-for-postgresql-when-to-choose-which/).
 
@@ -24,7 +24,7 @@ The project is setup as per the best practices advocated by the [Azure Developer
 
 ## Features ⚙️
 
-Implementations using the approach described by this repos expand the [feature scope](https://cap.cloud.sap/docs/about/) of SAP CAP for JavaScript to Azure PaaS apps.
+Implementations using the approach described by this repo expand the [feature scope](https://cap.cloud.sap/docs/about/) of SAP CAP for Node.js to Azure PaaS apps.
 
 > [!IMPORTANT]
 > When deployed on Azure App Services instead of SAP Business Technology Platform, Cloud Foundry specific features like the destination service or XSUAA are not available. Instead you will likely be using Microsoft Entra ID and the App Service and Azure API Management to govern your APIs.
@@ -39,13 +39,13 @@ Implementations using the approach described by this repos expand the [feature s
 * OpenAPI + client generator managed by SAP
 * Seamless integration with Azure native databases Azure Cosmos DB, purpose built for cloud native apps
 
-This example uses [SAP OpenUI5](https://openui5.org/) for rendering the UI. Learn more about other template engines [here](https://expressjs.com/en/resources/template-engines.html).
+This example uses a [UI5-based](https://openui5.org) app for rendering the UI. Learn more about other template engines [here](https://expressjs.com/en/resources/template-engines.html).
 
 ## Getting Started 🛫
 
 ### Prerequisites & Installation
 
-Follow the [SAP CAP documentation for JavaScript](https://cap.cloud.sap/docs/get-started/jumpstart) for your project setup.
+Follow the [SAP CAP documentation for Node.js](https://cap.cloud.sap/docs/get-started/jumpstart) for your project setup.
 
 Use any OData enabled SAP system:
 
@@ -94,7 +94,7 @@ This command will prompt you for the following information:
 8. browse to [http://localhost:8080](http://localhost:8080) to use postgres web interface adminer
 
 > [!NOTE]
-> Use the hybrid profile `cds watch --profile hybrid` to query the Azure PostgreSQL DB instead of the local dockerized PostgreSQL instance. See [here](src/README.md) for more details.
+> Use the hybrid profile `cds watch --profile hybrid` to query the Azure PostgreSQL DB instead of the local dockerized PostgreSQL instance. Note that this requires to have additional credentials set in  `/.env`. See [here](src/README.md) for more details.
 
 ## Deploy to Azure 🪂
 

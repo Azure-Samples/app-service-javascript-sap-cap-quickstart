@@ -1,0 +1,15 @@
+{
+  "name": "notimportant",
+  "version": "0.8.15",
+  "description": "just a helper for fiori tools",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "sapux": [
+    "src/app/capazure"
+  ]
+}

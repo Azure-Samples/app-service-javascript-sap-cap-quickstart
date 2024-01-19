@@ -5,7 +5,7 @@
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
-            "version": "0.0.1"
+            "version": "{{appVersion}}"
         },
         "title": "{{appTitle}}",
         "description": "{{appDescription}}",
@@ -107,7 +107,18 @@
                                     }
                                 }
                             },
-                            "initialLoad": "Enabled"
+                            "initialLoad": "Enabled",
+                            "content": {
+                                "header": {
+                                    "actions": {
+                                        "appVersion": {
+                                            "visible": true,
+                                            "enabled": true,
+                                            "text": "{i18n>appVersion}"
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 },

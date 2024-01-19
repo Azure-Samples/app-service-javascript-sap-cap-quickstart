@@ -2,35 +2,23 @@
 @host = localhost
 @port = 4004
 
-### single BP
-{{proto}}://{{host}}:{{port}}/odata/v4/api-business-partner/BusinessPartners('1000034')
 
+### all BPs
+{{proto}}://{{host}}:{{port}}/odata/v4/api-business-partner/BusinessPartnersLocal
+?$count=true
+
+### single BP
+# @name bp
+{{proto}}://{{host}}:{{port}}/odata/v4/api-business-partner/BusinessPartnersLocal
+?$filter=BusinessPartner eq '1000034'
+# &$select=BusinessPartnerFullName,CreationDate
+
+###### REMOTE
 ### remote: single BP
 {{$dotenv ODATA_URL}}/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('1000034')
 ?$format=json
 Authorization: Basic {{$dotenv ODATA_USERNAME}}:{{$dotenv ODATA_USERPWD}}
 
-### single BP w/ query options
-{{proto}}://{{host}}:{{port}}/odata/v4/api-business-partner/BusinessPartners('1000034')
-?$select=BusinessPartnerFullName,CreationDate
-
-### non-existent BP: should return 404
-{{proto}}://{{host}}:{{port}}/odata/v4/api-business-partner/BusinessPartners('abc')
-
-### all BPs
-{{proto}}://{{host}}:{{port}}/odata/v4/api-business-partner/BusinessPartners
-?$count=true
-
-### UPDATE
-PATCH {{proto}}://{{host}}:{{port}}/odata/v4/api-business-partner/BusinessPartners('1000034')
-Content-Type: application/json
-
-{
-  "FirstName": "Tony",
-  "LastName": "Stark"
-}
-
-###### REMOTE
 ### get csrf token
 # @name csrf
 GET {{$dotenv ODATA_URL}}/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('LBW-CUST04')
