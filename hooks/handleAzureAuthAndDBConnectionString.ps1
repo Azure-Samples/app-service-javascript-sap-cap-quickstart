@@ -15,6 +15,24 @@
 # Using Azure CLI command to create an app registration on Entra ID: https://learn.microsoft.com/cli/azure/ad/app?view=azure-cli-latest
 # and https://learn.microsoft.com/en-us/azure/app-service/configure-authentication-provider-aad?tabs=workforce-tenant
 
+
+function ToJsonWithPlatformEscaping {
+    # Hack due to. 
+    # https://github.com/Azure/azure-cli/blob/dev/doc/quoting-issues-with-powershell.md
+    param (
+        [Parameter(ValueFromPipeline=$true)]
+        [object]$InputObject
+    )
+
+    $retVal = $InputObject | ConvertTo-Json -Depth 7 -Compress
+
+    If ($IsWindows) {
+        $retVal = $retVal.Replace('"', '\"')
+    }
+
+    return $retVal
+}
+
 try {
     # This script section is used to inject the Cosmos DB connection string into the Azure App Service configuration after AZD deployment.
     # It requires the Azure CLI to be installed, configured on the build agent, and logged in interactively or via a service principal.
@@ -67,7 +85,7 @@ try {
         $APIM_API_SCOPES_JSON_ROOT = @()
         $APIM_API_SCOPES_JSON_LIST = @()
         $APIM_API_METADATA = $null
-        if($env:AZURE_APIM_APP_ID -ne ''){
+        if($env:AZURE_APIM_APP_ID){
             Write-Output "Reading Azure APIM app registration metadata..."
             #Read scopes array from Azure APIM app registration
             $APIM_API_METADATA = az ad app show --id $env:AZURE_APIM_APP_ID | ConvertFrom-Json
@@ -118,7 +136,7 @@ try {
                     enableIdTokenIssuance = "true"
                 }
             }
-        } | ConvertTo-Json -Depth 7 -Compress).Replace('"', '\"')
+        } | ToJsonWithPlatformEscaping)
 
         Write-Output "Creating web app Entra ID app registration..."
         $APP_REG_METADATA = az rest --method POST `
@@ -185,10 +203,10 @@ try {
             platform = @{
                 enabled = "true"
             }
-        } | ConvertTo-Json -Depth 4 -Compress).Replace('"', '\"')
+        } | ToJsonWithPlatformEscaping)
 
         Write-Output "Setting the authentication settings for the webapp in the v2 format, overwriting any existing settings..."
-        
+
         #https://learn.microsoft.com/cli/azure/webapp/auth/config-version?view=azure-cli-latest#az-webapp-auth-config-version-upgrade
         #https://learn.microsoft.com/cli/azure/webapp/auth?view=azure-cli-latest#az-webapp-auth-set
         $AUTH_SET_CMD = az webapp auth set --name $env:WEB_APP_NAME `
@@ -201,7 +219,7 @@ try {
         }
 
         # In case web app shall be authorized to call SAP OData api via Azure APIM 
-        if($env:AZURE_APIM_APP_ID -ne ''){
+        if($env:AZURE_APIM_APP_ID){
             Write-Output "Adding web app registration as pre-authorized client to the Azure APIM app registration..."
             #Compose PATCH request to add the web app as pre-authorized client to the Azure APIM app registration
             
@@ -227,7 +245,7 @@ try {
                 api = @{
                     preAuthorizedApplications = $APIM_API_METADATA.api.preAuthorizedApplications
                 }
-            } | ConvertTo-Json -Depth 4 -Compress).Replace('"', '\"')
+            } | ToJsonWithPlatformEscaping)
 
             #Inject the azure web app as pre-authorized client to the Azure APIM app registration using object id
             $AZURE_APIM_APP_METADATA = az ad app show --id $env:AZURE_APIM_APP_ID | ConvertFrom-Json
