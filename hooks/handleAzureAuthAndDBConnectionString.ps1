@@ -187,7 +187,7 @@ try {
                     enabled = "true"
                     registration = @{
                        clientId = $CLIENT_ID
-                       clientSecretSettingName = $env:AAD_KV_SECRET_NAME
+                       clientSecretSettingName = 'AADAPPSETTINGSECRET'
                        openIdIssuer = $ISSUER_URL
                     }
                     validation = @{ 
