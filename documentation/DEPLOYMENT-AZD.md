@@ -43,7 +43,8 @@ The `azd` CLI will ask you to provide the following information:
 
 > [!NOTE]
 > The parameters around the OData service are contained in the `.bicep` template i.e., in the `infra/main.bicep` file. You can provide them in different ways. The easiest way is to add them to the `infra/main.parameters.json` as references to environment variables in analogy to the already existing parameters available in the file. You can also add them after the deployment in the Azure Portal as we have defaulted them in the templates.  
-> 🚧 Can be set with `azd env set`, but requires environment to be set up upfront.
+
+[//]: # (TODO: These values can also be set with `azd env set`, but this requires environment to be set up upfront; see https://github.com/MartinPankraz/DSAGTechXChange24/blob/main/1-sap-cap-on-azure/student/quest4.md.)
 
 After a successful deployment browse your new app powered by the SAP Cloud SDK (it takes a while the first time ☕).
 
@@ -57,7 +58,6 @@ The `azd up` command comprises three steps of the deployment:
 
 To gain a bit more insight you can split your deployment accordingly via:
 
-> 🚧 Explain to browse to the right directory.
 1. Execution of `azd package`: this will package your code artifacts
 2. Execution of `azd provision`: this will exclusively set up your infrastructure.
 3. Execution of `azd deploy`: this will deploy your application to the provisioned infrastructure.
