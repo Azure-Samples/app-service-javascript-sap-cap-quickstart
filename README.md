@@ -68,7 +68,13 @@ Familiarize yourself with the [SAP CAP for Node.js jumpstart guide](https://cap.
 
 0. Run `azd auth login` and `az login` to authenticate with Azure and Azure Developer CLI (AZD). Azure CLI is required for the runtime update of CosmosDB credentials on the Azure App Service during post-provision. See [here](hooks/handleAzureAuthAndDBConnectionString.ps1) for reference.
 
-1. Run the following command to package a deployable copy of your application, provision the template's infrastructure to Azure and also deploy the application code to those newly provisioned resources.
+1. Switch the current working directory to `azd-sub`, containing the `azure.yaml` defining all resources and deployment procedure to bring your application up in Azure.
+
+    ```bash
+    cd azd-sub
+    ```
+
+2. Run the following command to package a deployable copy of your application, provision the template's infrastructure to Azure and also deploy the application code to those newly provisioned resources.
 
    ```bash
    azd up

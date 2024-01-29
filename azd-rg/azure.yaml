@@ -1,0 +1,30 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+
+name: app-service-javascript-sap-cap-quickstart
+requiredVersions:
+  azd: ">= 1.4.0"
+infra:
+  path: ../infra
+  module: app
+hooks:
+  postup:
+    posix:
+      shell: sh
+      run: ../hooks/fireworks.sh
+      continueOnError: true
+      interactive: true
+  preprovision:
+      shell: pwsh
+      run: ../hooks/setRgTag.ps1
+      continueOnError: false
+      interactive: true
+  postprovision:
+      shell: pwsh
+      run: ../hooks/handleAzureAuthAndDBConnectionString.ps1
+      continueOnError: false
+      interactive: true
+services:
+  sap-cap-api:
+    project: ../src
+    language: js
+    host: appservice

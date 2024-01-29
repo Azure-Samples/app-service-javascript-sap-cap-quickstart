@@ -1,0 +1,1 @@
+az group update --resource-group $env:AZURE_RESOURCE_GROUP --tags "azd-env-name=$env:AZURE_ENV_NAME"

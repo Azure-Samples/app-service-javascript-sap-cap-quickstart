@@ -51,6 +51,9 @@ param principalId string = ''
 @description('SAP OData service URL')
 param oDataUrl string = 'https://sandbox.api.sap.com/s4hanacloud'
 
+@description('SAP client for OData service')
+param oDataSapClient string = ''
+
 @description('SAP OData user name')
 param oDataUsername string = ''
 
@@ -69,7 +72,6 @@ param ApiKeyHeaderName string = 'APIKey'
 param _Ignore_Entra_ID_Token bool = true
 
 var abbrs = loadJsonContent('./abbreviations.json')
-var resourceToken = toLower(uniqueString(subscription().id, environmentName, location))
 var tags = { 'azd-env-name': environmentName }
 
 // Organize resources in a resource group
@@ -79,174 +81,50 @@ resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
   tags: tags
 }
 
+module app './app.bicep' = {
+  scope: rg
+  name: 'app-deployment'
+  params: {
+    environmentName: environmentName
+    location: location
+    apiServiceName: apiServiceName
+    applicationInsightsDashboardName: applicationInsightsDashboardName
+    applicationInsightsName: applicationInsightsName
+    appServicePlanName: appServicePlanName
+    keyVaultName: keyVaultName
+    logAnalyticsName: logAnalyticsName
+    cosmosAccountName: cosmosAccountName
+    useEntraIDAuthentication: useEntraIDAuthentication
+    skuName: skuName
+    principalId: principalId
+    oDataUrl: oDataUrl
+    oDataSapClient: oDataSapClient
+    oDataUsername: oDataUsername
+    oDataUserpwd: oDataUserpwd
+    _APIKey: _APIKey
+    ApiKeyHeaderName: ApiKeyHeaderName
+    _Ignore_Entra_ID_Token: _Ignore_Entra_ID_Token
+  }
+}
+
+
 //Reference the existing API Management instance from another resource group but same subscription
 resource apimrg 'Microsoft.Resources/resourceGroups@2021-04-01' existing = if (useAPIM){
   name: apimResourceGroupName
   scope: subscription()
 }
 
-module passwordgen './core_local/security/password-gen.bicep' = {
-  name: 'password-generator'
-  scope: rg
-  params: {
-    location: location
-  }
-}
-
-// The application database
-module cosmos './core_local/database/cosmos/postgresql/cosmos-psql-db.bicep' = {
-  name: 'cosmos'
-  scope: rg
-  params: {
-    serverGroupName: !empty(cosmosAccountName) ? cosmosAccountName : '${abbrs.dBforPostgreSQLServers}${resourceToken}'
-    location: location
-    tags: tags
-    version: '16'
-    administratorLoginPassword: passwordgen.outputs.result
-  }
-}
-
-var cosmosDBSecretName = '${abbrs.keyVaultVaults}secret-cosmosdb-password'
-var myAppSettings = {
-  ODATA_URL: oDataUrl
-  ODATA_USERNAME: oDataUsername
-  ODATA_USERPWD: '@Microsoft.KeyVault(SecretUri=${keyVault.outputs.endpoint}secrets/${abbrs.keyVaultVaults}secret-odata-password)'
-  APIKEY: '@Microsoft.KeyVault(SecretUri=${keyVault.outputs.endpoint}secrets/${abbrs.keyVaultVaults}secret-apikey)'
-  APIKEY_HEADERNAME: ApiKeyHeaderName
-  POSTGRES_HOSTNAME: ''
-  POSTGRES_USERPWD: '@Microsoft.KeyVault(SecretUri=${keyVault.outputs.endpoint}secrets/${cosmosDBSecretName})'
-  IGNORE_ENTRA_ID_TOKEN: _Ignore_Entra_ID_Token
-  AADAPPSETTINGSECRET: '@Microsoft.KeyVault(SecretUri=${keyVault.outputs.endpoint}secrets/${abbrs.keyVaultVaults}secret-aad-appsetting-secret)'
-}
-
-// The application backend
-module api './app/api.bicep' = {
-  name: 'api'
-  scope: rg
-  params: {
-    name: !empty(apiServiceName) ? apiServiceName : '${abbrs.webSitesAppService}api-${resourceToken}'
-    location: location
-    tags: tags
-    applicationInsightsName: monitoring.outputs.applicationInsightsName
-    appServicePlanId: appServicePlan.outputs.id
-    keyVaultName: keyVault.outputs.name
-    appSettings: myAppSettings
-    useAuthSettingsv2: useEntraIDAuthentication
-    use32BitWorkerProcess: skuName == 'F1' || skuName == 'FREE' || skuName == 'SHARED' ? true : false
-    alwaysOn: skuName == 'F1' || skuName == 'FREE' || skuName == 'SHARED' ? false : true
-  }
-}
-
-// Give the API access to KeyVault
-module apiKeyVaultAccess './core/security/keyvault-access.bicep' = {
-  name: 'api-keyvault-access'
-  scope: rg
-  params: {
-    keyVaultName: keyVault.outputs.name
-    principalId: api.outputs.SERVICE_API_IDENTITY_PRINCIPAL_ID
-  }
-}
-
-// Create an App Service Plan to group applications under the same payment plan and SKU
-module appServicePlan './core/host/appserviceplan.bicep' = {
-  name: 'appserviceplan'
-  scope: rg
-  params: {
-    name: !empty(appServicePlanName) ? appServicePlanName : '${abbrs.webServerFarms}${resourceToken}'
-    location: location
-    tags: tags
-    sku: {
-      name: skuName
-    }
-  }
-}
-
-// Store secrets in a keyvault
-module keyVault './core/security/keyvault.bicep' = {
-  name: 'keyvault'
-  scope: rg
-  params: {
-    name: !empty(keyVaultName) ? keyVaultName : '${abbrs.keyVaultVaults}${resourceToken}'
-    location: location
-    tags: tags
-    principalId: principalId
-  }
-}
-
-// Store OData Password in KeyVault
-module oDataPassword './core/security/keyvault-secret.bicep' = {
-  name: 'odatapassword'
-  scope: rg
-  params: {
-    name: '${abbrs.keyVaultVaults}secret-odata-password'
-    keyVaultName: keyVault.outputs.name
-    tags: tags
-    secretValue: oDataUserpwd
-  }
-}
-
-var appSecretSettingName = '${abbrs.keyVaultVaults}secret-aad-appsetting-secret'
-// Create value for Entra ID app secret that gets filled via azd postprovision hook
-module aadAppRegistrationSecret './core/security/keyvault-secret.bicep' = if (useEntraIDAuthentication) {
-  name: 'aadappregsecret'
-  scope: rg
-  params: {
-    name: appSecretSettingName
-    keyVaultName: keyVault.outputs.name
-    tags: tags
-    secretValue: ''
-  }
-}
-
-// Store API key in KeyVault
-module ApiKey './core/security/keyvault-secret.bicep' = {
-  name: 'apikey'
-  scope: rg
-  params: {
-    name: '${abbrs.keyVaultVaults}secret-apikey'
-    keyVaultName: keyVault.outputs.name
-    tags: tags
-    secretValue: _APIKey
-  }
-}
-
-// Store CosmosDB secret in KeyVault
-module cosmosDBPassword './core/security/keyvault-secret.bicep' = {
-  name: 'cosmosdbpassword'
-  scope: rg
-  params: {
-    name: cosmosDBSecretName
-    keyVaultName: keyVault.outputs.name
-    tags: tags
-    secretValue: passwordgen.outputs.result
-  }
-}
-
-// Monitor application with Azure Monitor
-module monitoring './core/monitor/monitoring.bicep' = {
-  name: 'monitoring'
-  scope: rg
-  params: {
-    location: location
-    tags: tags
-    logAnalyticsName: !empty(logAnalyticsName) ? logAnalyticsName : '${abbrs.operationalInsightsWorkspaces}${resourceToken}'
-    applicationInsightsName: !empty(applicationInsightsName) ? applicationInsightsName : '${abbrs.insightsComponents}${resourceToken}'
-    applicationInsightsDashboardName: !empty(applicationInsightsDashboardName) ? applicationInsightsDashboardName : '${abbrs.portalDashboards}${resourceToken}'
-  }
-}
-
-// Configures the API in the Azure API Management (APIM) service
 module apimApi './app/apim-api.bicep' = if (useAPIM) {
-  name: 'apim-api-deployment'
   scope: apimrg
+  name: 'apim-api-deployment'
   params: {
-    name: useAPIM ? apimServiceName : ''
+    name: apimServiceName
     apiName: 'api-business-partner'
     apiDisplayName: 'API_BUSINESS_PARTNER SAP'
     apiDescription: 'Business Partner residing on SAP ERP exposed via OData'
     apiPath: 'sdk/sap/opu/odata/sap/API_BUSINESS_PARTNER'
     apiBackendUrl: apimApiSAPBackendURL
-    applicationInsightsName: monitoring.outputs.applicationInsightsName
+    applicationInsightsName: app.outputs.MONITORING_APPINSIGHTS_NAME
     applicationInsightsRG: rg.name
     //apiAppName: api.outputs.SERVICE_API_NAME
   }
@@ -254,18 +132,24 @@ module apimApi './app/apim-api.bicep' = if (useAPIM) {
 
 // App outputs
 output AZURE_RESOURCE_GROUP string = rg.name
-output APPLICATIONINSIGHTS_CONNECTION_STRING string = monitoring.outputs.applicationInsightsConnectionString
-output AZURE_KEY_VAULT_ENDPOINT string = keyVault.outputs.endpoint
-output AZURE_KEY_VAULT_NAME string = keyVault.outputs.name
 output AZURE_LOCATION string = location
 output AZURE_TENANT_ID string = tenant().tenantId
+
+
+output WEB_APP_NAME string = app.outputs.WEB_APP_NAME
+output USE_EntraIDAuthentication bool = app.outputs.USE_EntraIDAuthentication
+
+output AZURE_KEY_VAULT_NAME string = app.outputs.AZURE_KEY_VAULT_NAME
+output AZURE_KEY_VAULT_ENDPOINT string = app.outputs.AZURE_KEY_VAULT_ENDPOINT
+output AZURE_KEY_VAULT_COSMOS_SECRET_NAME string = app.outputs.AZURE_KEY_VAULT_COSMOS_SECRET_NAME
+output AAD_KV_SECRET_NAME string = app.outputs.AAD_KV_SECRET_NAME
+output COSMOSDB_CLUSTER_NAME string = app.outputs.COSMOSDB_CLUSTER_NAME
+//TODO: Consolidate following two properties?
+output APPLICATIONINSIGHTS_CONNECTION_STRING string = app.outputs.APPLICATIONINSIGHTS_CONNECTION_STRING
+output SAP_CLOUD_SDK_API_APPLICATIONINSIGHTS_CONNECTION_STRING string = app.outputs.SAP_CLOUD_SDK_API_APPLICATIONINSIGHTS_CONNECTION_STRING
+
 output USE_APIM bool = useAPIM
 output AZURE_APIM_NAME string = apimServiceName
-output USE_EntraIDAuthentication bool = useEntraIDAuthentication
 output AZURE_APIM_APP_ID string = apimEntraIdAppId
-output AAD_KV_SECRET_NAME string = appSecretSettingName
-output WEB_APP_NAME string = api.outputs.SERVICE_API_NAME
-output COSMOSDB_CLUSTER_NAME string = cosmos.outputs.name
-output AZURE_KEY_VAULT_COSMOS_SECRET_NAME string = cosmosDBSecretName
-output SAP_CLOUD_SDK_API_URL array = useAPIM ? [ apimApi.outputs.SERVICE_API_URI, api.outputs.SERVICE_API_URI ]: [api.outputs.SERVICE_API_URI]
-output SAP_CLOUD_SDK_API_APPLICATIONINSIGHTS_CONNECTION_STRING string = monitoring.outputs.applicationInsightsConnectionString
+
+output SAP_CLOUD_SDK_API_URL array = useAPIM ? [ apimApi.outputs.SERVICE_API_URI, app.outputs.SERVICE_API_URI ]: [app.outputs.SERVICE_API_URI]
