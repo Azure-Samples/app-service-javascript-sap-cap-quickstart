@@ -29,6 +29,7 @@
     "@sap/eslint-plugin-ui5-jsdocs": "^2.0.8",
     "@sap/ux-specification": "^1.120.1",
     "@sapui5/ts-types": "^1.92.2",
+    "cds-launchpad-plugin": "^2.1.6",
     "chai": "^4.3.10",
     "chai-as-promised": "^7.1.1",
     "chai-subset": "^1.6.0",
