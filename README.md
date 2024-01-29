@@ -68,7 +68,13 @@ Familiarize yourself with the [SAP CAP for Node.js jumpstart guide](https://cap.
 
 0. Run `azd auth login` and `az login` to authenticate with Azure and Azure Developer CLI (AZD). Azure CLI is required for the runtime update of CosmosDB credentials on the Azure App Service during post-provision. See [here](hooks/handleAzureAuthAndDBConnectionString.ps1) for reference.
 
-1. Run the following command to package a deployable copy of your application, provision the template's infrastructure to Azure and also deploy the application code to those newly provisioned resources.
+1. Switch the current working directory to `azd-sub`, containing the `azure.yaml` defining all resources and deployment procedure to bring your application up in Azure.
+
+    ```bash
+    cd azd-sub
+    ```
+
+2. Run the following command to package a deployable copy of your application, provision the template's infrastructure to Azure and also deploy the application code to those newly provisioned resources.
 
    ```bash
    azd up
@@ -102,7 +108,6 @@ There are multiple ways to deploy this project to Azure. We provide two options 
 
 1. via template deployment and VS Code extension. This approach allows an quick deployment to Azure but does not necessarily reflect the best practices. You find more information on this option [here](documentation/DEPLOYMENT-VSCODE.md).
 2. via [Azure Developer CLI](https://learn.microsoft.com/azure/developer/azure-developer-cli/overview) using `azd up`. This approach enables a quick and easy deployment and **already contains best practices**. It serves as a **perfect starting point** for a **production grade** setup. You find more information on this option [here](documentation/DEPLOYMENT-AZD.md).
-  > 🚧 Explain to browse to the right directory.
 
 ## Deploy to SAP BTP 🪂
 

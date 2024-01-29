@@ -21,10 +21,14 @@ If you are not using one of these option you need to install the `azd` locally o
 
 ### The easy way
 
-> 🚧 Explain to browse to the right directory.
 The easiest way to deploy the necessary infrastructure and the application code via `azd` is:
 
-*Step 1*: Key in one command: `azd up`.
+*Step 1*: From working directory `azd-sub`, key in one command: `azd up`:
+
+  ```bash
+  cd azd-sub
+  azd up
+  ```
 
 *Step 2*: There is no step 2 😎
 
