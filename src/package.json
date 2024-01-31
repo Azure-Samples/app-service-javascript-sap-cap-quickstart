@@ -1,6 +1,6 @@
 {
   "name": "app-service-javascript-sap-cap-quickstart",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "private": true,
   "description": "Sample project showcasing SAP CAP consumption from SAP S4 with Azure App Service and SAP OpenUI5",
   "repository": "<Add your repository here>",
