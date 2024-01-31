@@ -1,5 +1,24 @@
 {
   "requires": {
+    "auth": {
+      "[development]": {
+        "kind": "mocked",
+        "localAzure": {
+          "password": "asdf",
+          "roles": ["admin"]
+        }
+      },
+      "[hybrid]": {
+        "kind": "mocked",
+        "localAzure": {
+          "password": "asdf",
+          "roles": ["admin"]
+        }
+      },
+      "[azure]": {
+        "impl": "srv/cds-entra-id/index.js"
+      }
+    },
     "db": {
       "kind": "postgres",
       "impl": "@cap-js/postgres",
