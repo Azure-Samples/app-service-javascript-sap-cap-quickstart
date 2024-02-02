@@ -26,6 +26,8 @@ The first request to the entity set (`GET /odata/v4/api-business-partner/Busines
 
 The Fiori Elements UI is at `http(s)://<host>/capazure/index.html`
 
+_Hint_: add the URL parameter `sap-ui-xx-viewCache=false` to force updates on the Fiori Elements UI (`http(s)://<host>/capazure/index.html?sap-ui-xx-viewCache=false`)
+
 ## under the hood
 
 ### environments

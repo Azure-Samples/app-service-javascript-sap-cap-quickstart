@@ -1,5 +1,16 @@
 {
   "requires": {
+    "auth": {
+      "[development]": {
+        "kind": "mocked"
+      },
+      "[hybrid]": {
+        "kind": "mocked"
+      },
+      "[azure]": {
+        "impl": "cds-entra-id"
+      }
+    },
     "db": {
       "kind": "postgres",
       "impl": "@cap-js/postgres",

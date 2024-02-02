@@ -1,148 +1,160 @@
 {
-    "_version": "1.59.0",
-    "sap.app": {
-        "id": "capazure",
-        "type": "application",
-        "i18n": "i18n/i18n.properties",
-        "applicationVersion": {
-            "version": "{{appVersion}}"
-        },
-        "title": "{{appTitle}}",
-        "description": "{{appDescription}}",
-        "resources": "resources.json",
-        "sourceTemplate": {
-            "id": "@sap/generator-fiori:lrop",
-            "version": "1.12.1",
-            "toolsId": "b76899e7-a0ff-4c62-8a84-11373c3fa4cd"
-        },
-        "dataSources": {
-            "mainService": {
-                "uri": "/odata/v4/api-business-partner/",
-                "type": "OData",
-                "settings": {
-                    "odataVersion": "4.0"
-                }
-            }
-        }
+  "_version": "1.59.0",
+  "sap.app": {
+    "id": "capazure",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "{{appVersion}}"
     },
-    "sap.ui": {
-        "technology": "UI5",
-        "icons": {
-            "icon": "",
-            "favIcon": "",
-            "phone": "",
-            "phone@2": "",
-            "tablet": "",
-            "tablet@2": ""
-        },
-        "deviceTypes": {
-            "desktop": true,
-            "tablet": true,
-            "phone": true
-        }
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.12.1",
+      "toolsId": "b76899e7-a0ff-4c62-8a84-11373c3fa4cd"
     },
-    "sap.ui5": {
-        "flexEnabled": true,
-        "dependencies": {
-            "minUI5Version": "1.120.3",
-            "libs": {
-                "sap.m": {},
-                "sap.ui.core": {},
-                "sap.ushell": {},
-                "sap.fe.templates": {}
-            }
-        },
-        "contentDensities": {
-            "compact": true,
-            "cozy": true
-        },
-        "models": {
-            "i18n": {
-                "type": "sap.ui.model.resource.ResourceModel",
-                "settings": {
-                    "bundleName": "capazure.i18n.i18n"
-                }
-            },
-            "": {
-                "dataSource": "mainService",
-                "settings": {
-                    "operationMode": "Server",
-                    "autoExpandSelect": true
-                }
-            },
-            "@i18n": {
-                "type": "sap.ui.model.resource.ResourceModel",
-                "uri": "i18n/i18n.properties"
-            }
-        },
-        "resources": {
-            "css": []
-        },
-        "routing": {
-            "routes": [
-                {
-                    "pattern": ":?query:",
-                    "name": "BusinessPartnersList",
-                    "target": "BusinessPartnersList"
-                },
-                {
-                    "pattern": "BusinessPartnersLocal({key}):?query:",
-                    "name": "BusinessPartnersObjectPage",
-                    "target": "BusinessPartnersObjectPage"
-                }
-            ],
-            "targets": {
-                "BusinessPartnersList": {
-                    "type": "Component",
-                    "id": "BusinessPartnersList",
-                    "name": "sap.fe.templates.ListReport",
-                    "options": {
-                        "settings": {
-                            "contextPath": "/BusinessPartnersLocal",
-                            "variantManagement": "Page",
-                            "navigation": {
-                                "BusinessPartnersLocal": {
-                                    "detail": {
-                                        "route": "BusinessPartnersObjectPage"
-                                    }
-                                }
-                            },
-                            "initialLoad": "Enabled",
-                            "content": {
-                                "header": {
-                                    "actions": {
-                                        "appVersion": {
-                                            "visible": true,
-                                            "enabled": true,
-                                            "text": "{i18n>appVersion}"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "BusinessPartnersObjectPage": {
-                    "type": "Component",
-                    "id": "BusinessPartnersObjectPage",
-                    "name": "sap.fe.templates.ObjectPage",
-                    "options": {
-                        "settings": {
-                            "editableHeaderContent": false,
-                            "contextPath": "/BusinessPartnersLocal"
-                        }
-                    }
-                }
-            }
-        },
-        "extends": {
-            "extensions": {
-                "sap.ui.controllerExtensions": {}
-            }
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/api-business-partner/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "4.0"
         }
+      }
     },
-    "sap.fiori": {
-        "registrationIds": [],
-        "archeType": "transactional"
+    "crossNavigation": {
+      "inbounds": {
+        "bupa-edit": {
+          "semanticObject": "bupa",
+          "action": "manage",
+          "title": "{{flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
     }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.120.3",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ushell": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "capazure.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "BusinessPartnersList",
+          "target": "BusinessPartnersList"
+        },
+        {
+          "pattern": "BusinessPartnersLocal({key}):?query:",
+          "name": "BusinessPartnersObjectPage",
+          "target": "BusinessPartnersObjectPage"
+        }
+      ],
+      "targets": {
+        "BusinessPartnersList": {
+          "type": "Component",
+          "id": "BusinessPartnersList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/BusinessPartnersLocal",
+              "variantManagement": "Page",
+              "navigation": {
+                "BusinessPartnersLocal": {
+                  "detail": {
+                    "route": "BusinessPartnersObjectPage"
+                  }
+                }
+              },
+              "initialLoad": "Enabled",
+              "content": {
+                "header": {
+                  "actions": {
+                    "appVersion": {
+                      "visible": true,
+                      "enabled": true,
+                      "text": "{i18n>appVersion}"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "BusinessPartnersObjectPage": {
+          "type": "Component",
+          "id": "BusinessPartnersObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "contextPath": "/BusinessPartnersLocal"
+            }
+          }
+        }
+      }
+    },
+    "extends": {
+      "extensions": {
+        "sap.ui.controllerExtensions": {}
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  }
 }
