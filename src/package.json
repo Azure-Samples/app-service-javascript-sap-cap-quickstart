@@ -20,7 +20,7 @@
     "@sap-cloud-sdk/resilience": "^3.11.0",
     "@sap/cds": "^7",
     "@sap/xssec": "^3.6.1",
-    "cds-entra-id": "*",
+    "cds-entra-id": "^1.0.5",
     "cds-plugin-ui5": "^0.8.0",
     "dotenv": "^16.4.1",
     "express": "^4"
