@@ -39,6 +39,7 @@ Implementations using the approach described by this repo expand the [feature sc
 * OpenAPI + client generator managed by SAP
 * Seamless integration with Azure native databases Azure Cosmos DB, purpose built for cloud native apps
 * Frictionless integration of Azure App Service app roles with [SAP CAP authorization model](https://cap.cloud.sap/docs/guides/authorization) using [cds-entra-id](https://www.npmjs.com/package/cds-entra-id)
+* Out-of-the-box support for remote debugging your CAP application hosted on Azure App Service as described [here](documentation/DEBUG.md).
 
 This example uses a [UI5-based](https://openui5.org) app for rendering the UI. Learn more about other template engines [here](https://expressjs.com/en/resources/template-engines.html).
 
@@ -128,6 +129,7 @@ Sometimes things do not work as expected. Here are some resources that support y
 * [Azure API Management Request tracing](https://learn.microsoft.com/azure/api-management/api-management-howto-api-inspector)
 * [Azure API Management Gateway logs](https://learn.microsoft.com/azure/api-management/api-management-howto-use-azure-monitor#view-diagnostic-data-in-azure-monitor)
 * [SAP CAP Troubleshooting guide](https://cap.cloud.sap/docs/get-started/troubleshooting)
+* [Remote Debug](documentation/DEBUG.md) your application using remote debugging with the Azure App Service extension for VS Code.
 
 ## Additional resources
 
