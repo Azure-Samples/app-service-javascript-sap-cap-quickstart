@@ -9,8 +9,14 @@ services:
     ports:
       - "5432:5432"
     command: ["postgres", "-c", "log_statement=all"]
+
   adminer:
     image: adminer
     restart: always
     ports:
       - 8080:8080
+
+networks:
+  default:
+    name: pg-ext
+    external: true
