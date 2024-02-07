@@ -16,7 +16,7 @@
       "impl": "@cap-js/postgres",
       "[development]": {
         "credentials": {
-          "host": "localhost",
+          "host": "db",
           "port": 5432,
           "database": "postgres",
           "user": "postgres",
