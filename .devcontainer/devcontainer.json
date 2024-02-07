@@ -36,8 +36,5 @@
 	"remoteUser": "node",
 	"hostRequirements": {
 		"memory": "8gb"
-	},
-	"runArgs": [
-		"--network=pg-ext"
-	]
+	}
 }
