@@ -32,12 +32,9 @@
 		5432,
 		4004
 	],
-	"postCreateCommand": "azd config set alpha.resourceGroupDeployments on && cd src/ && npm install && npm add -g @sap/cds-dk && cd ../ && chmod -R a+x /workspaces/app-service-javascript-sap-cap-quickstart/hooks",
+	"postCreateCommand": "azd config set alpha.resourceGroupDeployments on && cd src/ && npm install && npm add -g @sap/cds-dk && cd ../ && chmod -R a+x /workspaces/app-service-javascript-sap-cap-quickstart/hooks && docker network create pg-ext",
 	"remoteUser": "node",
 	"hostRequirements": {
 		"memory": "8gb"
-	},
-	"runArgs": [
-		"--network=pg-ext"
-	]
+	}
 }
