@@ -117,6 +117,10 @@ There are multiple ways to deploy this project to Azure. We provide two options 
 
 Code-based deployment could be done using the recently added [SAP BTP terraform provider](https://developers.sap.com/tutorials/btp-terraform-get-started.html) or the open-source project [BTP setup automator](https://github.com/SAP-samples/btp-setup-automator). The configuration comprises the infrastructure as well as the mta build and the deployment to Cloud Foundry. You can find more information on the setup using the BTP automator [here](https://github.com/Azure-Samples/app-service-javascript-sap-cloud-sdk-quickstart/blob/main/documentation/DEPLOYMENT-BTPSA.md) and for terraform [here](https://github.com/SAP-samples/teched2023-XP160/blob/main/README.md).
 
+## Cost estimates
+
+Solution componenents like the Azure App Service offer [free plans](https://learn.microsoft.com/azure/app-service/overview-hosting-plans#how-much-does-my-app-service-plan-cost). The burstable plans of Azure Cosmos DB for PostreSQL is the primary consumption driver. Consult the [Azure Pricing Calculator](https://azure.microsoft.com/pricing/calculator/) for a detailed view.
+
 ## What's next?
 
 You can do a lot more once the app is deployed. Curious? We got you covered with some more information on out-of-the-box **Entra ID (formerly Azure AD) authentication** [here](documentation/AUTHENTICATION.md), insights into networking, OpenUI5 for frontend design and DevOps [here](documentation/WHATS-NEXT.md).
