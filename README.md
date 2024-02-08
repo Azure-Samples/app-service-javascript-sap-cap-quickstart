@@ -94,7 +94,7 @@ This command will prompt you for the following information:
 
 #### Dev time
 
-1. `cd /src`
+1. `cd src/`
 2. `npm install`
 3. `cp ../templates/.env ./.env` and maintain your OData url including credentials
 4. Start Docker engine locally (or use pre-provided devcontainer - Docker outside of Docker feature)
