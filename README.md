@@ -49,6 +49,8 @@ This example uses a [UI5-based](https://openui5.org) app for rendering the UI. L
 
 Follow the [SAP CAP documentation for Node.js](https://cap.cloud.sap/docs/get-started/jumpstart) for your project setup.
 
+Use the devcontainer (with GitHub Codespaces for instance) or install the [Azure Developer CLI](https://aka.ms/azd-install) in your environment.
+
 Use any OData enabled SAP system:
 
 * SAP's [mock server](https://github.com/SAP-archive/cloud-s4-sdk-book/tree/mock-server) (used in screenshots below),
