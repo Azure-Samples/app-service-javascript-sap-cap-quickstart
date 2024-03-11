@@ -16,13 +16,14 @@ resource serverGroup 'Microsoft.DBforPostgreSQL/serverGroupsv2@2022-11-08' = {
   properties: {
     administratorLoginPassword: administratorLoginPassword
     nodeCount: 0
-    coordinatorVCores: 2
+    coordinatorVCores: 1
+    nodeVCores: 4
     nodeEnablePublicIpAccess: true
     coordinatorEnablePublicIpAccess: true
-    coordinatorServerEdition: 'GeneralPurpose'
-    coordinatorStorageQuotaInMb: 131072
+    coordinatorServerEdition: 'BurstableMemoryOptimized' //GeneralPurpose
+    coordinatorStorageQuotaInMb: 32768 //131072
     nodeServerEdition: 'MemoryOptimized'
-    nodeStorageQuotaInMb: 524288
+    nodeStorageQuotaInMb: 524288 //524288
     postgresqlVersion: version
   }
 }
