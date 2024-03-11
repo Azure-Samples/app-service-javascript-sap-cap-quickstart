@@ -1,3 +1,25 @@
+---
+page_type: sample
+languages:
+- azdeveloper
+- javascript
+- bicep
+- hcl
+- powershell
+products:
+- azure
+- azure-monitor
+- azure-key-vault
+- azure-app-service
+- azure-api-management
+- azure-cosmos-db
+- azure-database-postgresql
+urlFragment: app-service-javascript-sap-cap-quickstart
+name: SAP CAP on Azure App Service Quickstart
+description: Quick-start project using SAP CAP model with consuming SAP OData running on Azure App Services backed by Azure Cosmos DB for PostgreSQL.
+---
+<!-- YAML front-matter schema: https://review.learn.microsoft.com/en-us/help/contribute/samples/process/onboarding?branch=main#supported-metadata-fields-for-readmemd -->
+
 # SAP CAP on Azure App Service Quickstart 🚀
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=740966807)
