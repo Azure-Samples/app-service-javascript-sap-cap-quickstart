@@ -37,7 +37,7 @@ The project is setup as per the best practices advocated by the [Azure Developer
 ![Illustration of app setup in Azure](assets/project-overview-azd-style.png)
 
 > [!WARNING]
-> Verify the latest [SAP's open-source license](https://github.com/cap-js) for SAP CAP for your reference. Please be aware if your SAP libraries are still using the [SAP Developer License](https://tools.eu1.hana.ondemand.com/developer-license-3_1.txt). Components are being added to open-source by SAP on an ongoing basis according to their road map published [here.](https://blogs.sap.com/2023/10/02/open-sourcing-cap-how-to-learn-more-or-get-involved/)
+> Verify the latest [SAP's open-source license](https://github.com/cap-js) for SAP CAP for your reference. Please be aware if your SAP libraries are still using the [SAP Developer License](https://tools.eu1.hana.ondemand.com/developer-license-3_1.txt). Components are being added to open-source by SAP on an ongoing basis according to their road map published [here.](https://blogs.sap.com/2023/10/02/open-sourcing-cap-how-to-learn-more-or-get-involved/) When in doubt, consider the [SAP Cloud SDK on Azure](https://github.com/Azure-Samples/app-service-javascript-sap-cloud-sdk-quickstart) instead.
 
 > [!TIP]
 > - In case you need to translate between OData versions and metadata specification use our converter [here](https://aka.ms/ODataOpenAPI).
