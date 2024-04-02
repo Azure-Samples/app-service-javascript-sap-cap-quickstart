@@ -60,7 +60,7 @@ Implementations using the approach described by this repo expand the [feature sc
 * OData v2 and v4 + entity and client generator managed by SAP
 * OpenAPI + client generator managed by SAP
 * Seamless integration with Azure native databases Azure Cosmos DB, purpose built for cloud native apps
-* Frictionless integration of Azure App Service app roles with [SAP CAP authorization model](https://cap.cloud.sap/docs/guides/authorization) using [cds-entra-id](https://www.npmjs.com/package/cds-entra-id)
+* Frictionless integration of Azure App Service app roles with [SAP CAP authorization model](https://cap.cloud.sap/docs/guides/security/authorization) using [cds-entra-id](https://www.npmjs.com/package/cds-entra-id)
 * Out-of-the-box support for remote debugging your CAP application hosted on Azure App Service as described [here](documentation/DEBUG.md).
 
 This example uses a [UI5-based](https://openui5.org) app for rendering the UI. Learn more about other template engines [here](https://expressjs.com/en/resources/template-engines.html).
