@@ -63,7 +63,7 @@ Implementations using the approach described by this repo expand the [feature sc
 * Frictionless integration of Azure App Service app roles with [SAP CAP authorization model](https://cap.cloud.sap/docs/guides/security/authorization) using [cds-entra-id](https://www.npmjs.com/package/cds-entra-id)
 * Out-of-the-box support for remote debugging your CAP application hosted on Azure App Service as described [here](documentation/DEBUG.md).
 
-This example uses a [UI5-based](https://openui5.org) app for rendering the UI. Learn more about other template engines [here](https://expressjs.com/en/resources/template-engines.html).
+This example uses a [UI5-based](https://openui5.org) app for rendering the UI. Learn more about other template engines [here](https://expressjs.com/en/guide/using-template-engines.html).
 
 ## Getting Started 🛫
 
