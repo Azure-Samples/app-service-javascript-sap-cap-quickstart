@@ -28,7 +28,7 @@
   "devDependencies": {
     "@sap/cds-dk": "^7",
     "@sap/eslint-plugin-ui5-jsdocs": "^2.0.8",
-    "@sap/ux-specification": "^1.120.2",
+    "@sap/ux-specification": "^1.124.7",
     "@sapui5/ts-types": "^1.120.4",
     "cds-launchpad-plugin": "^2.1.7",
     "chai": "^4.3.10",
