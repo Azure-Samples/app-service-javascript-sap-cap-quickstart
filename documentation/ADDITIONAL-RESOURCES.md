@@ -2,7 +2,7 @@
 
 ## Details
 
-* [SAP CAP documentation for JavaScript](https://cap.cloud.sap/docs/get-started/jumpstart)
+* [SAP CAP documentation for JavaScript](https://cap.cloud.sap/docs/about/#jumpstart-grow-as-you-go)
 
 * [Access SAP Business Application Studio as a remote from Visual Studio Code / Codespaces](https://blogs.sap.com/2023/04/28/access-sap-business-application-studio-as-a-remote-from-visual-studio-code)
 
