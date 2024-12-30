@@ -24,7 +24,7 @@ description: Quick-start project using SAP CAP model with consuming SAP OData ru
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=740966807)
 
-This repos serves as quick-start project showcasing [SAP Cloud Application Programming Model (CAP) for Node.js](https://cap.cloud.sap/docs/get-started/jumpstart) OData consumption from SAP S/4HANA running on Azure App Services backed with [Azure Cosmos DB for PostgreSQL](https://learn.microsoft.com/azure/cosmos-db/postgresql/introduction). SAP offers a native module [cds-dbs](https://github.com/cap-js/cds-dbs/tree/main/postgres) for PostgreSQL integration.
+This repos serves as quick-start project showcasing [SAP Cloud Application Programming Model (CAP) for Node.js](https://cap.cloud.sap/docs/about/#jumpstart-grow-as-you-go) OData consumption from SAP S/4HANA running on Azure App Services backed with [Azure Cosmos DB for PostgreSQL](https://learn.microsoft.com/azure/cosmos-db/postgresql/introduction). SAP offers a native module [cds-dbs](https://github.com/cap-js/cds-dbs/tree/main/postgres) for PostgreSQL integration.
 
 Understand the difference between Azure Database for PostreSQL and Cosmos DB for PostgreSQL from [this post](https://devblogs.microsoft.com/cosmosdb/azure-cosmos-db-for-postgresql-vs-azure-database-for-postgresql-when-to-choose-which/).
 
@@ -69,7 +69,7 @@ This example uses a [UI5-based](https://openui5.org) app for rendering the UI. L
 
 ### Prerequisites & Installation
 
-Follow the [SAP CAP documentation for Node.js](https://cap.cloud.sap/docs/get-started/jumpstart) for your project setup.
+Follow the [SAP CAP documentation for Node.js](https://cap.cloud.sap/docs/about/#jumpstart-grow-as-you-go) for your project setup.
 
 Use the devcontainer (with GitHub Codespaces for instance) or install the [Azure Developer CLI](https://aka.ms/azd-install) in your environment.
 
@@ -88,7 +88,7 @@ Use any OData enabled SAP system:
 
 ### Quickstart 🚀
 
-Familiarize yourself with the [SAP CAP for Node.js jumpstart guide](https://cap.cloud.sap/docs/get-started/jumpstart) and optionally browse SAP Developer tutorials like [this beginner guide](https://developers.sap.com/tutorials/cp-apm-nodejs-create-service.html) and [this end-to-end focused one](https://developers.sap.com/group.btp-app-cap-create.html).
+Familiarize yourself with the [SAP CAP for Node.js jumpstart guide](https://cap.cloud.sap/docs/about/#jumpstart-grow-as-you-go) and optionally browse SAP Developer tutorials like [this beginner guide](https://developers.sap.com/tutorials/cp-apm-nodejs-create-service.html) and [this end-to-end focused one](https://developers.sap.com/group.btp-app-cap-create.html).
 
 #### Deploy time
 
