@@ -26,7 +26,7 @@ description: Quick-start project using SAP CAP model with consuming SAP OData ru
 
 This repos serves as quick-start project showcasing [SAP Cloud Application Programming Model (CAP) for Node.js](https://cap.cloud.sap/docs/about/#jumpstart-grow-as-you-go) OData consumption from SAP S/4HANA running on Azure App Services backed with [Azure Cosmos DB for PostgreSQL](https://learn.microsoft.com/azure/cosmos-db/postgresql/introduction). SAP offers a native module [cds-dbs](https://github.com/cap-js/cds-dbs/tree/main/postgres) for PostgreSQL integration.
 
-Understand the difference between Azure Database for PostreSQL and Cosmos DB for PostgreSQL from [this post](https://devblogs.microsoft.com/cosmosdb/azure-cosmos-db-for-postgresql-vs-azure-database-for-postgresql-when-to-choose-which/).
+Understand the difference between Azure Database for PostreSQL and Cosmos DB for PostgreSQL from [this post](https://techcommunity.microsoft.com/blog/adforpostgresql/postgresql-on-azure-%E2%80%93-how-to-choose-what%E2%80%99s-best-for-your-app/3784537).
 
 The project's primary purpose is to set you up for success for your SAP extension project on Azure and reduce the lead time to your first successful deployment as much as possible with developer friendly commands.
 
