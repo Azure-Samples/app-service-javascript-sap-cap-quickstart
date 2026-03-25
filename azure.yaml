@@ -3,3 +3,6 @@
 name: app-service-javascript-sap-cap-quickstart
 metadata:
   template: app-service-javascript-sap-cap-quickstart@0.0.1-beta
+infrastructure:
+  provider: bicep
+  path: infra
